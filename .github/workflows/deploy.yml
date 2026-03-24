@@ -3,19 +3,19 @@ name: Deploy Next.js to Hostinger
 on:
   push:
     branches:
-      - main # ඔයාගේ branch එක master නම් මෙතනට master කියලා දාන්න
+      - main # ඔයාගේ බ්‍රාන්ච් එක master නම් master කියලා දාන්න
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Install Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 22 # <--- මෙතන 22 කියලා මාරු කරන්න
 
       - name: Install Dependencies
         run: npm install
