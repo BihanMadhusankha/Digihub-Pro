@@ -3,7 +3,7 @@
 import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { CheckCircle2, MessageSquare, Gift, Calculator, Pin, Users, Info, MoreHorizontal, ThumbsUp, MessageCircle, Share2 as ShareIcon, Heart } from "lucide-react";
-import { FBPage, corePages, nichePages } from "@/app/ecosystem/page";
+import { FBPage, corePages, nichePages } from "@/data/ecosystemData";
 import Image from "next/image";
 
 /* ─── constants ─── */
