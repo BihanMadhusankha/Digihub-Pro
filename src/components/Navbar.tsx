@@ -10,7 +10,6 @@ import { BRAND_FIRST_PART, BRAND_SECOND_PART } from "@/constants/brand";
 const navLinks = [
   { name: "Home", href: "/" },
   { name: "Services", href: "/services" },
-  { name: "Store", href: "/store" },
   { name: "Pricing", href: "/pricing" },
   { name: "Portfolio", href: "/portfolio" },
   { name: "Ecosystem", href: "/ecosystem" },

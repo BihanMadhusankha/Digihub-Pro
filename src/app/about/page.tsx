@@ -49,43 +49,6 @@ const corePillars = [
   },
 ];
 
-/* ════════════════════════════════════════
-   MANAGEMENT TEAM
- ════════════════════════════════════════ */
-const managementTeam = [
-  {
-    name: "Bihan Madhusankha",
-    role: "Managing Director (MD)",
-    focus: "Technical Architecture & Digital Strategy",
-    credentials: "Elite Systems Engineering | Strategic Growth Expert",
-    mission: "Driving the engineering vision and automation ecosystems.",
-    image: "/images/bihan-1.jpg",
-  },
-  {
-    name: "Malindu Delpitiya",
-    role: "Chief Executive Officer (CEO)",
-    focus: "Strategic Growth & Business Leadership",
-    credentials: "Enterprise Operations Management | Corporate Partnerships",
-    mission: "Leading long-term agency vision and corporate partnerships.",
-    image: "/images/malindu.png",
-  },
-  {
-    name: "Shiwantha Prasad",
-    role: "Chief Executive Officer (CEO)",
-    focus: "Operational Excellence & Business Expansion",
-    credentials: "Retail Network Optimization | Growth Strategies",
-    mission: "Overseeing client success and multi-market growth strategies.",
-    image: "/images/shiwantha.png",
-  },
-  {
-    name: "Hasini Chamodi",
-    role: "Head of Administration (HOA)",
-    focus: "Organizational Management & Efficiency",
-    credentials: "Business Administration | Organizational Strategy",
-    mission: "Orchestrating core operations and ensuring administrative precision.",
-    image: "/images/hasini.png",
-  },
-];
 
 /* ════════════════════════════════════════
    ABOUT PAGE
@@ -165,77 +128,6 @@ export default function About() {
         </div>
       </section>
 
-      {/* ════════ EXECUTIVE PROFILES ════════ */}
-      <section className="py-24 px-6 border-t border-white/5 relative overflow-hidden">
-        <div className="max-w-7xl mx-auto">
-          {/* Header */}
-          <div className="text-center mb-20">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} className="space-y-4">
-              <motion.span variants={fadeUp} custom={0} className="text-xs font-black text-accent uppercase tracking-[0.3em]">Management Team</motion.span>
-              <motion.h2 variants={fadeUp} custom={1} className="text-4xl md:text-6xl font-black text-white tracking-tight">The Minds Behind the Hub.</motion.h2>
-              <motion.p variants={fadeUp} custom={2} className="text-zinc-500 text-lg max-w-2xl mx-auto">
-                A strategic blend of technical innovation, academic excellence, and real-world business leadership.
-              </motion.p>
-            </motion.div>
-          </div>
-
-          {/* Team Grid */}
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8"
-          >
-            {managementTeam.map((member, i) => (
-              <motion.div
-                key={member.name}
-                variants={fadeUp}
-                custom={i}
-                whileHover={{ y: -8 }}
-                className="group p-8 rounded-3xl border border-white/5 bg-white/[0.02] hover:border-accent/40 hover:bg-white/[0.04] transition-all duration-300 flex flex-col items-center text-center shadow-xl"
-              >
-                <div className="relative w-32 h-32 rounded-full overflow-hidden mb-6 border-2 border-white/10 group-hover:border-accent/50 transition-colors shadow-2xl">
-                  <Image
-                    src={member.image}
-                    alt={member.name}
-                    fill
-                    className="object-cover"
-                  />
-                  <div className="absolute inset-0 bg-accent/10 opacity-0 group-hover:opacity-100 transition-opacity" />
-                </div>
-                <div className="space-y-2 mb-6">
-                  <h3 className="text-xl font-black text-white group-hover:text-accent transition-colors">{member.name}</h3>
-                  <p className="text-accent font-bold text-xs uppercase tracking-widest">{member.role}</p>
-                </div>
-                <div className="space-y-4 flex-1">
-                  <p className="text-zinc-400 text-xs leading-relaxed italic">&quot;{member.mission}&quot;</p>
-                  <div className="h-[1px] bg-white/10 w-12 mx-auto" />
-                  <div className="space-y-2">
-                    <p className="text-white text-[11px] font-black uppercase tracking-wider">{member.focus}</p>
-                    <p className="text-zinc-500 text-[10px] leading-tight px-4">{member.credentials}</p>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-
-          {/* Professional Summary Card */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mt-24 p-10 md:p-14 rounded-[2.5rem] border border-accent/20 bg-gradient-to-br from-accent/10 via-black to-black text-center shadow-[0_0_80px_-20px_rgba(0,229,255,0.3)] relative overflow-hidden"
-          >
-            <div className="absolute top-0 left-1/4 w-64 h-64 bg-accent/5 rounded-full blur-[80px] -z-10" />
-            <div className="relative z-10 max-w-3xl mx-auto">
-              <Quote size={40} className="text-accent opacity-20 mb-8 mx-auto" />
-              <p className="text-xl md:text-2xl font-bold text-white leading-relaxed italic">
-                &quot;At Digihub Pro, our leadership bridges the gap between complex technology and sustainable business growth. With a combined network of 3.5M+ reach and deep technical roots, we don&apos;t just provide services—we build legacies.&quot;
-              </p>
-            </div>
-          </motion.div>
-        </div>
-      </section>
 
       {/* ════════ CORE PILLARS ════════ */}
       <section className="py-24 px-6">

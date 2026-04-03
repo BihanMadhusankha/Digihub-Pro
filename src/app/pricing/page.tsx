@@ -20,35 +20,34 @@ const plans = {
       name: "Digihub Starter",
       price: "LKR 20,000",
       popular: false,
-      description: "Establish your professional identity with a clean, fast portfolio site.",
+      description: "Focused social media presence to kickstart your professional brand on Facebook.",
       features: [
-        "Single-page site",
         "5 FB Reels / month",
         "8 FB Posts / month",
-        "SEO-optimised setup",
-        "Mobile responsive design",
-        "Hosting included",
-        "Free Domain name included"
+        "Content strategy foundation",
+        "Basic audience engagement",
+        "Brand alignment setup",
+        "Monthly performance check"
       ],
-      waMsg: "Hi Digihub Pro Team, I'm a Tutor/Professional interested in the Digihub Starter package at LKR 20,000 (Includes 5 Reels & 8 Posts per month).",
+      waMsg: "Hi Digihub Pro Team, I'm a Tutor/Professional interested in the Digihub Starter SMM package at LKR 20,000 (Includes 5 Reels & 8 Posts per month).",
     },
     {
       tier: "Professional",
       name: "Digihub Professional",
       price: "LKR 45,000",
       popular: true,
-      description: "Build undisputed authority in your niche with a multi-platform presence managed by our team.",
+      description: "Advanced multi-platform social media growth and strategic engagement management.",
       features: [
-        "Multi-page portfolio",
         "10 Reels / month (FB, YT & TikTok)",
         "20 FB Posts / month",
-        "Strategy Session with Our Team",
-        "Student / tutor trust signals",
+        "Platform optimization (FB, YT & TikTok)",
+        "Advanced Content Strategy",
+        "Student / tutor trust signals setup",
         "Analytics reporting",
-        "Hosting included",
-        "Free Domain Name included"
+        "Competitor analysis",
+        "Priority content scheduling"
       ],
-      waMsg: "Hi Digihub Pro Team, I'm a Tutor/Professional interested in the Digihub Professional package at LKR 45,000 (Includes 10 Reels, 20 Posts, Hosting & Domain).",
+      waMsg: "Hi Digihub Pro Team, I'm a Tutor/Professional interested in the Digihub Professional SMM package at LKR 45,000 (Includes 10 Reels, 20 Posts, and multi-platform growth).",
     },
     {
       tier: "Enterprise",

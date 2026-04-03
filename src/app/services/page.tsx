@@ -57,7 +57,7 @@ const services = [
       "Advanced Audience Growth & Retargeting",
       "Performance Analytics & Engagement ROI",
     ],
-    image: "/images/social-dominance.png", // මේක ඔයාගේ පරණ සාර්ථක project එකක් නිසා ඒ විදිහටම තියන්න.
+    image: "/images/social-dominance.png", // Updated with professional Sinhala ad mockup.
   },
 ];
 
@@ -71,7 +71,7 @@ const howWeWork = [
 const brands = [
   { name: "THILINA BORALASSA", logo: "/images/THILINA BORALASSA.jpeg" },
   { name: "SPARTA", logo: "/images/SPARTA.png" },
-  { name: "DUMITH BANDARA", logo: "images/DUMITH BANDARA.jpg" },
+  { name: "DUMITH BANDARA", logo: "/images/DUMITH BANDARA.jpg" },
   { name: "SASIP", logo: "/images/SASIP.png" },
   { name: "RNG ADVERTISING", logo: "/images/rng-advertising.jpeg" },
 ];

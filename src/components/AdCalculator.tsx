@@ -2,16 +2,16 @@
 
 import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { CheckCircle2, MessageSquare, Gift, Calculator, Pin, Users, Info } from "lucide-react";
+import { CheckCircle2, MessageSquare, Gift, Calculator, Pin, Users, Info, MoreHorizontal, ThumbsUp, MessageCircle, Share2 as ShareIcon, Heart } from "lucide-react";
 import { FBPage, corePages, nichePages } from "@/app/ecosystem/page";
 import Image from "next/image";
 
 /* ─── constants ─── */
 const PIN_OPTIONS = [
   { id: "none", label: "Standard (No Pin)", price: 0, duration: "No Pin" },
-  { id: "24h",  label: "Pin 24 Hours",     price: 1500, duration: "24 Hours" },
-  { id: "3d",   label: "Pin 3 Days",       price: 4000, duration: "3 Days" },
-  { id: "7d",   label: "Pin 7 Days",       price: 8000, duration: "7 Days" },
+  { id: "24h",  label: "Pin 24 Hours",     price: 500,  duration: "24 Hours" },
+  { id: "3d",   label: "Pin 3 Days",       price: 1000, duration: "3 Days" },
+  { id: "7d",   label: "Pin 7 Days",       price: 2000, duration: "7 Days" },
 ] as const;
 
 const BULK_DISCOUNT_THRESHOLD = 5;
@@ -29,6 +29,7 @@ export default function AdCalculator() {
   const selectedPageDatas = allAvailablePages.filter(p => selectedPages.has(p.name));
   
   const selectedPin = PIN_OPTIONS.find(o => o.id === pinId)!;
+  const firstSelectedPage = selectedPageDatas[0];
 
   /* ─── calculations ─── */
   const basePriceTotal = selectedPageDatas.reduce((sum, p) => sum + p.basePrice, 0);
@@ -118,7 +119,7 @@ Please confirm the slot availability.`;
                     >
                       <div className={`w-12 h-12 rounded-full mb-3 bg-gradient-to-br ${page.color} flex items-center justify-center border-2 ${isSelected ? "border-accent" : "border-white/10"}`}>
                         {page.logo ? (
-                          <Image src={page.logo} alt={page.name} width={48} height={48} className="rounded-full object-cover" />
+                          <Image src={page.logo} alt="" width={48} height={48} className="rounded-full object-cover" />
                         ) : (
                           <span className="text-white text-xs font-bold">{page.name.slice(0, 2)}</span>
                         )}
@@ -172,6 +173,92 @@ Please confirm the slot availability.`;
               </div>
             </div>
 
+            {/* 3. Visual Ad Preview Mockup */}
+            <AnimatePresence>
+              {hasSelections && (
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  className="space-y-6 pt-4 border-t border-white/5"
+                >
+                  <div className="flex items-center gap-2">
+                    <MessageSquare size={18} className="text-accent" />
+                    <h3 className="text-lg font-black text-white text-sm">Visual Ad Preview <span className="text-xs font-normal text-zinc-500 ml-2">(How it will appear)</span></h3>
+                  </div>
+
+                  <div className="max-w-md mx-auto sm:mx-0 glassmorphism rounded-2xl border border-white/10 overflow-hidden shadow-2xl">
+                    {/* FB Header */}
+                    <div className="p-4 flex items-center justify-between border-b border-white/5">
+                      <div className="flex items-center gap-3">
+                        <div className={`w-10 h-10 rounded-full bg-gradient-to-br ${firstSelectedPage?.color} flex items-center justify-center border border-white/10 overflow-hidden`}>
+                          {firstSelectedPage?.logo ? (
+                            <Image src={firstSelectedPage.logo} alt="" width={40} height={40} className="object-cover" />
+                          ) : (
+                            <span className="text-white text-xs font-bold">{firstSelectedPage?.name.slice(0, 2)}</span>
+                          )}
+                        </div>
+                        <div>
+                          <p className="text-sm font-black text-white leading-tight">{firstSelectedPage?.name}</p>
+                          <div className="flex items-center gap-1.5 mt-0.5">
+                            <span className="text-[10px] font-bold text-accent uppercase tracking-wider">Sponsored</span>
+                            <span className="text-[10px] text-zinc-600">• Just now</span>
+                          </div>
+                        </div>
+                      </div>
+                      <MoreHorizontal size={18} className="text-zinc-600" />
+                    </div>
+
+                    {/* Ad Content Placeholder */}
+                    <div className="p-4 space-y-3">
+                      <div className="h-4 w-3/4 bg-white/5 rounded-full" />
+                      <div className="h-4 w-1/2 bg-white/5 rounded-full" />
+                      
+                      <div className="relative aspect-video rounded-xl bg-gradient-to-br from-zinc-800 to-zinc-950 border border-white/5 overflow-hidden flex items-center justify-center group">
+                        {/* Pinned Badge Overlay */}
+                        {pinId !== "none" && (
+                          <div className="absolute top-3 left-3 z-10 flex items-center gap-1.5 px-3 py-1.5 bg-accent text-black rounded-lg text-[10px] font-black uppercase tracking-widest shadow-lg animate-pulse">
+                            <Pin size={12} fill="currentColor" /> Pinned Ad
+                          </div>
+                        )}
+                        
+                        <div className="flex flex-col items-center gap-3 opacity-30 group-hover:opacity-50 transition-opacity duration-700">
+                          <Image src="/images/social-dominance.png" alt="" width={120} height={120} className="opacity-40 grayscale" />
+                          <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-white">Your Professional Creative</p>
+                        </div>
+                        
+                        <div className="absolute bottom-0 inset-x-0 h-1/3 bg-gradient-to-t from-black/80 to-transparent" />
+                      </div>
+                    </div>
+
+                    {/* FB Engagement Footer */}
+                    <div className="px-4 py-3 border-t border-white/5 flex items-center justify-between">
+                       <div className="flex items-center gap-4">
+                          <div className="flex items-center gap-1.5">
+                             <div className="w-5 h-5 rounded-full bg-accent flex items-center justify-center">
+                                <ThumbsUp size={10} className="text-black" />
+                             </div>
+                             <span className="text-[10px] text-zinc-500 font-bold">You & 48.2k others</span>
+                          </div>
+                       </div>
+                       <div className="text-[10px] text-zinc-500 font-bold">1.2k Comments • 856 Shares</div>
+                    </div>
+
+                    <div className="px-4 py-2 border-t border-white/5 flex items-center justify-around">
+                       <button className="flex items-center gap-2 text-zinc-500 hover:text-white py-2 transition-colors">
+                          <ThumbsUp size={16} /> <span className="text-xs font-bold">Like</span>
+                       </button>
+                       <button className="flex items-center gap-2 text-zinc-500 hover:text-white py-2 transition-colors">
+                          <MessageCircle size={16} /> <span className="text-xs font-bold">Comment</span>
+                       </button>
+                       <button className="flex items-center gap-2 text-zinc-500 hover:text-white py-2 transition-colors">
+                          <ShareIcon size={16} /> <span className="text-xs font-bold">Share</span>
+                       </button>
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
 
           {/* ── RIGHT: Live Summary Bar ── */}

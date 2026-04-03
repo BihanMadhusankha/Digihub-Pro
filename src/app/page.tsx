@@ -1,3 +1,5 @@
+"use client";
+
 import FadeIn, { FadeInStagger } from "@/components/FadeIn";
 import Link from "next/link";
 import {
@@ -121,33 +123,7 @@ export default function Home() {
                 </Link>
               </FadeIn>
 
-              {/* Trust Bar */}
-              <FadeIn delay={0.5} className="mt-20 flex flex-col items-center gap-4">
-                <p className="text-zinc-500 text-xs font-black uppercase tracking-[0.3em]">Trusted by Sri Lankan Brands &amp; Tutors</p>
-                <div className="flex items-center">
-                  <div className="flex -space-x-3">
-                    {[
-                      "/images/sinawa.jpeg",
-                      "/images/SASIP.png",
-                      "/images/SPARTA.png",
-                      "/images/DUMITH BANDARA.jpg",
-                      "/images/THILINA BORALASSA.jpeg"
-                    ].map((src, i) => (
-                      <div key={i} className="relative w-12 h-12 rounded-full border-2 border-black overflow-hidden bg-zinc-900 shadow-xl">
-                        <Image src={src} alt="Client partner" fill className="object-cover" />
-                      </div>
-                    ))}
-                  </div>
-                  <div className="ml-4 flex flex-col items-start">
-                    <div className="flex gap-0.5">
-                      {[...Array(5)].map((_, i) => (
-                        <Star key={i} size={12} className="fill-accent text-accent" />
-                      ))}
-                    </div>
-                    <span className="text-white text-[10px] font-bold">3.5M+ Combined Reach</span>
-                  </div>
-                </div>
-              </FadeIn>
+
             </div>
           </FadeInStagger>
         </div>
@@ -220,116 +196,108 @@ export default function Home() {
           </FadeInStagger>
         </div>
       </section>
+      {/* ══════════════════════════════════════
+          4. MOBILE ADVERTISING SHOWCASE
+      ══════════════════════════════════════ */}
+      <section className="px-6 py-24 relative overflow-hidden bg-zinc-950/40">
+        <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-16">
+          <FadeIn className="lg:w-1/2">
+            <p className="text-accent text-sm font-semibold uppercase tracking-[0.2em] mb-4">Social Dominance</p>
+            <h2 className="text-4xl md:text-6xl font-black tracking-tight mb-6">
+              Captivate Your <span className="text-accent">Audience</span> Where They Are.
+            </h2>
+            <p className="text-zinc-400 text-lg leading-relaxed mb-8">
+              In a world of constant scrolling, we engineer thumb-stopping advertisements that command attention. Our data-driven creative strategies don't just get views — they build communities and drive high-intent conversions.
+            </p>
+            <div className="grid sm:grid-cols-2 gap-6">
+               {[
+                 { title: "Vertical First", desc: "Optimised for TikTok, Reels & Shorts." },
+                 { title: "High Engagement", desc: "Proven to boost CTR by up to 40%." }
+               ].map((item) => (
+                 <div key={item.title} className="p-5 rounded-2xl bg-white/5 border border-white/10">
+                   <h4 className="text-white font-bold mb-1">{item.title}</h4>
+                   <p className="text-zinc-500 text-sm">{item.desc}</p>
+                 </div>
+               ))}
+            </div>
+          </FadeIn>
+          
+          <FadeIn className="lg:w-1/2 relative" delay={0.2}>
+            {/* Ambient glows behind phone */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-accent/20 rounded-full blur-[100px] -z-10" />
+            <div className="relative mx-auto max-w-[320px] aspect-[9/19.5] rounded-[3rem] border-[8px] border-zinc-900 shadow-2xl overflow-hidden group bg-zinc-900 flex items-center justify-center">
+              <Image 
+                src="/images/phone-ad.png" 
+                alt="High-converting mobile advertisement" 
+                fill 
+                className="object-cover hover:scale-105 transition-transform duration-700"
+                onError={(e) => {
+                  (e.currentTarget as HTMLImageElement).style.visibility = "hidden";
+                }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+              {/* Fallback mockup UI */}
+              <div className="flex flex-col items-center text-center p-6 gap-4 z-0">
+                <div className="w-16 h-16 rounded-full bg-accent/20 flex items-center justify-center text-accent">
+                   <Share2 size={32} />
+                </div>
+                <h4 className="text-white font-black">Digihub Pro</h4>
+                <div className="w-full h-32 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-zinc-600">
+                   Ad Preview
+                </div>
+              </div>
+            </div>
+          </FadeIn>
+        </div>
+      </section>
 
       {/* ══════════════════════════════════════
-          4. EXPERTISE "WHY ME" SECTION
-      ══════════════════════════════════════ */}
-      {/* ══════════════════════════════════════
-          4. WHY DIGIHUB PRO? (EDGE SECTION)
-      ══════════════════════════════════════ */}
-      {/* ══════════════════════════════════════
-          4. WHY DIGIHUB PRO? (EDGE SECTION)
+          4. PLANS BUILT FOR YOUR GOALS
       ══════════════════════════════════════ */}
       <section className="px-6 py-32 border-t border-white/5 relative z-10 bg-zinc-950/20">
         <div className="max-w-7xl mx-auto">
           <FadeInStagger>
             {/* Section Header */}
-            <div className="max-w-4xl mb-20">
-              <FadeIn>
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 border border-accent/20 text-accent text-xs font-black uppercase tracking-widest mb-6">
-                  <Zap size={12} fill="currentColor" /> The Digihub Pro Edge
-                </div>
-                <h2 className="text-4xl md:text-6xl font-black tracking-tight text-white mb-8">
-                  Where Data Meets <span className="text-accent">Dominance.</span>
-                </h2>
-                <p className="text-zinc-400 text-lg md:text-xl leading-relaxed">
-                  We don&apos;t just build tools; we engineer growth. At Digihub Pro, we unite decade-long <strong className="text-white">Enterprise Operations Management</strong> experience with elite <strong className="text-white underline decoration-accent/30 underline-offset-4">Systems Engineering</strong>. Our solutions are built on the same foundations that power multi-branch enterprise networks, delivering high-performance digital assets that drive real measurable impact.
-                </p>
-              </FadeIn>
-            </div>
+            <FadeIn className="text-center mb-16">
+              <p className="text-accent text-sm font-semibold uppercase tracking-[0.2em] mb-4">Transparent Pricing</p>
+              <h2 className="text-4xl md:text-6xl font-black tracking-tight mb-6">
+                Plans Built for <span className="text-accent">Your Goals.</span>
+              </h2>
+              <p className="text-zinc-400 text-lg max-w-xl mx-auto mb-10">
+                Tailored packages for Tutors, Professionals & Business Owners — starting from just LKR 20,000.
+              </p>
+            </FadeIn>
 
-            {/* Triple Threat Strategy Grid */}
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
+            {/* Plan highlights */}
+            <div className="grid md:grid-cols-3 gap-6 mb-16">
               {[
-                {
-                  icon: <BarChart3 className="text-accent" size={28} />,
-                  title: "Data Intelligence",
-                  desc: "Turning raw business numbers into strategic growth decisions through Power BI & Advanced Analytics.",
-                },
-                {
-                  icon: <Globe className="text-emerald-400" size={28} />,
-                  title: "High-Performance Web",
-                  desc: "Ultra-fast Next.js websites designed specifically for high conversion and seamless SEO.",
-                },
-                {
-                  icon: <TrendingUp className="text-purple-400" size={28} />,
-                  title: "Social Dominance",
-                  desc: "Leveraging a 3.5M+ Network reach to build your audience at scale across FB, YT, and TikTok.",
-                },
-                {
-                  icon: <Layers className="text-blue-400" size={28} />,
-                  title: "Systems Automation",
-                  desc: "Eliminating manual bottlenecks with custom n8n workflows for 24/7 business efficiency.",
-                },
-              ].map((strategy, i) => (
+                { label: "Starter", price: "LKR 20,000", desc: "5 Reels & 8 Posts per month. Focused on boosting your social media presence and engagement.", badge: "Tutors & Professionals", color: "border-white/10" },
+                { label: "Professional", price: "LKR 45,000", desc: "10 Reels across FB/YT/TikTok per month, complete with analytics and strategic growth planning.", badge: "Most Popular", color: "border-accent bg-accent/5 shadow-[0_0_60px_-15px_rgba(0,229,255,0.35)]" },
+                { label: "Enterprise", price: "LKR 100,000", desc: "Premium hub, 15 Reels, 30 Posts, automation pipelines & dedicated support.", badge: "Full Dominance", color: "border-white/10" },
+              ].map((plan, i) => (
                 <FadeIn key={i} delay={0.1 * i}>
-                  <div className="group relative p-8 rounded-3xl border border-white/5 bg-white/[0.02] hover:bg-white/[0.04] hover:border-accent/30 hover:-translate-y-2 transition-all duration-500 shadow-xl">
-                    <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-accent/10 transition-all">
-                      {strategy.icon}
+                  <div className={`group relative p-8 rounded-3xl border ${plan.color} hover:border-accent/40 hover:-translate-y-2 transition-all duration-400 h-full flex flex-col gap-4`}>
+                    <span className="text-[10px] font-black text-zinc-500 uppercase tracking-widest">{plan.badge}</span>
+                    <div>
+                      <h3 className="text-xl font-black text-white group-hover:text-accent transition-colors mb-1">{plan.label}</h3>
+                      <p className="text-3xl font-black text-accent">{plan.price}</p>
                     </div>
-                    <h3 className="text-xl font-black text-white mb-4 group-hover:text-accent transition-colors">
-                      {strategy.title}
-                    </h3>
-                    <p className="text-zinc-500 text-sm leading-relaxed group-hover:text-zinc-400 transition-colors">
-                      {strategy.desc}
-                    </p>
-                    {/* Hover Glow */}
-                    <div className="absolute inset-0 rounded-3xl bg-accent/5 opacity-0 group-hover:opacity-100 blur-2xl -z-10 transition-opacity" />
+                    <p className="text-zinc-400 text-sm leading-relaxed flex-1">{plan.desc}</p>
+                    <Link href="/pricing" className="inline-flex items-center gap-2 text-xs font-bold text-accent/70 group-hover:text-accent transition-colors mt-2">
+                      See full details <ArrowRight size={14} />
+                    </Link>
                   </div>
                 </FadeIn>
               ))}
             </div>
 
-            {/* Experience Meets Innovation Feature Block */}
-            <FadeIn delay={0.4}>
-              <div className="relative p-1 rounded-[2.5rem] bg-gradient-to-r from-accent/20 via-white/5 to-accent/20 overflow-hidden group">
-                <div className="relative bg-black rounded-[2.4rem] p-10 md:p-14 overflow-hidden border border-white/10">
-                  <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_50%,rgba(0,229,255,0.05),transparent_70%)]" />
-                  
-                  <div className="relative z-10 grid md:grid-cols-[1fr_auto_1fr] items-center gap-10 text-center">
-                    {/* Left Side */}
-                    <div className="space-y-3">
-                      <p className="text-xs font-black text-zinc-500 uppercase tracking-widest">Institutional Roots</p>
-                      <h4 className="text-xl md:text-2xl font-black text-white">Enterprise Operations</h4>
-                      <p className="text-zinc-400 text-sm">Large-Scale Systems Management</p>
-                    </div>
-
-                    {/* Center Divider/Bridge */}
-                    <div className="flex flex-col items-center gap-4">
-                      <div className="w-[1px] h-12 bg-gradient-to-t from-accent/50 to-transparent hidden md:block" />
-                      <div className="w-16 h-16 rounded-full border border-accent/40 bg-accent/5 flex items-center justify-center shadow-[0_0_20px_rgba(0,229,255,0.2)]">
-                        <Zap size={24} className="text-accent animate-pulse" />
-                      </div>
-                      <p className="text-accent text-[10px] font-black uppercase tracking-[0.3em] whitespace-nowrap px-4 py-1.5 rounded-full bg-accent/10 border border-accent/20">The Growth Engine</p>
-                      <div className="w-[1px] h-12 bg-gradient-to-b from-accent/50 to-transparent hidden md:block" />
-                    </div>
-
-                    {/* Right Side */}
-                    <div className="space-y-3">
-                      <p className="text-xs font-black text-zinc-500 uppercase tracking-widest">Technical Precision</p>
-                      <h4 className="text-xl md:text-2xl font-black text-white">Systems Engineering</h4>
-                      <p className="text-zinc-400 text-sm">Elite Mathematical &amp; Logic Rigor</p>
-                    </div>
-                  </div>
-
-                  {/* Summary Footer */}
-                  <div className="mt-12 pt-8 border-t border-white/5 text-center">
-                    <p className="text-lg md:text-xl font-bold text-zinc-300 italic">
-                      &quot;The perfect bridge between complex technology and sustainable business profits.&quot;
-                    </p>
-                  </div>
-                </div>
-              </div>
+            <FadeIn delay={0.3} className="text-center">
+              <Link
+                href="/pricing"
+                className="inline-flex items-center gap-3 px-10 py-4 bg-accent text-black font-black rounded-full hover:scale-105 transition-transform shadow-[0_0_30px_rgba(0,229,255,0.3)]"
+              >
+                View All Plans <ArrowRight size={20} />
+              </Link>
             </FadeIn>
           </FadeInStagger>
         </div>

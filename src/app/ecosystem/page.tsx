@@ -15,13 +15,20 @@ const fadeUp = {
 };
 
 /* ════════════════════════════════════════
-   HERO STATS
+   HERO STATS CALCULATION HELPER
 ════════════════════════════════════════ */
-const stats = [
-  { icon: <Users size={26} className="text-accent" />, value: "3.5M+", label: "Aggregate Followers" },
-  { icon: <Radio size={26} className="text-accent" />, value: "25+", label: "Engagement Channels" },
-  { icon: <TrendingUp size={26} className="text-accent" />, value: "10M+", label: "Monthly Organic Reach" },
-];
+function parseFollowers(fStr: string) {
+  const n = parseFloat(fStr.replace(/[^0-9.]/g, "")) || 0;
+  if (fStr.includes("M")) return n * 1_000_000;
+  if (fStr.includes("k")) return n * 1_000;
+  return n;
+}
+
+function fmtStat(n: number) {
+  if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(1)}M+`;
+  if (n >= 1_000) return `${Math.floor(n / 1_000)}k+`;
+  return `${n}+`;
+}
 
 /* ════════════════════════════════════════
    FACEBOOK PAGES — CORE ASSETS
@@ -35,24 +42,30 @@ export interface FBPage {
 }
 
 export const corePages: FBPage[] = [
-  { name: "සිනාව", followers: "813k+", logo: "/images/sinawa.jpeg", color: "from-violet-600 to-purple-800", basePrice: 15000 },
-  { name: "SUPUN LIYANARACHCHI", followers: "559k+", logo: "/images/supun liyanarachchi.jpeg", color: "from-blue-500 to-cyan-700", basePrice: 12000 },
-  { name: "පිස්සුඅන්දරෙ", followers: "341k+", logo: "/images/pissu andare.jpeg", color: "from-orange-500 to-red-700", basePrice: 8000 },
-  { name: "Madu", followers: "333k+", logo: "/images/madu.jpeg", color: "from-pink-500 to-rose-700", basePrice: 8000 },
-  { name: "දිලු", followers: "279k+", logo: "/images/dilu.jpeg", color: "from-green-500 to-emerald-700", basePrice: 7000 },
-  { name: "සිතූ sithu", followers: "232k+", logo: "/images/sithu.jpeg", color: "from-yellow-500 to-amber-700", basePrice: 6000 },
-  { name: "මැන්ටලේ mantale", followers: "215k+", logo: "/images/mantale.jpeg", color: "from-teal-500 to-cyan-700", basePrice: 6000 },
+  { name: "SUPUN LIYANARACHCHI", followers: "559k+", logo: "/images/supun liyanarachchi.jpeg", color: "from-blue-500 to-cyan-700", basePrice: 5000 },
+  { name: "දිලු", followers: "279k+", logo: "/images/dilu.jpeg", color: "from-green-500 to-emerald-700", basePrice: 3000 },
 ];
 
 export const nichePages: FBPage[] = [
-  { name: "මාලිමා කාරයෝ", followers: "121k+", logo: "/images/malima karayo.jpeg", color: "from-indigo-500 to-violet-700", basePrice: 5000 },
-  { name: "USA", followers: "87k+", logo: "/images/usa.jpeg", color: "from-red-500 to-rose-700", basePrice: 4000 },
-  { name: "Real වෙස්-ටෝක්", followers: "84k+", logo: "/images/real wes talk.jpeg", color: "from-blue-600 to-indigo-800", basePrice: 4000 },
-  { name: "රශ්", followers: "75k+", logo: "/images/rash.jpeg", color: "from-emerald-500 to-green-700", basePrice: 3500 },
-  { name: "Drama Land", followers: "60k+", logo: "/images/drama land.jpeg", color: "from-fuchsia-500 to-purple-700", basePrice: 3000 },
-  { name: "HELA CINEMA", followers: "56k+", logo: "/images/HELA CINEMA.jpeg", color: "from-zinc-600 to-zinc-800", basePrice: 3000 },
-  { name: "Walauwa", followers: "31k+", logo: "/images/walauwa.jpeg", color: "from-amber-500 to-orange-700", basePrice: 2500 },
-  { name: "Yanthare", followers: "17k+", logo: "/images/yanthare.jpeg", color: "from-sky-500 to-blue-700", basePrice: 2000 },
+  { name: "HELA CINEMA", followers: "56k+", logo: "/images/HELA CINEMA.jpeg", color: "from-zinc-600 to-zinc-800", basePrice: 2000 },
+  { name: "Walauwa", followers: "31k+", logo: "/images/walauwa.jpeg", color: "from-amber-500 to-orange-700", basePrice: 1000 },
+  { name: "Yanthare", followers: "17k+", logo: "/images/yanthare.jpeg", color: "from-sky-500 to-blue-700", basePrice: 500 },
+];
+
+/* ════════════════════════════════════════
+   FINAL STATS CALCULATION
+════════════════════════════════════════ */
+const allPages = [...corePages, ...nichePages];
+const totalFollowersCount = allPages.reduce((s, p) => s + parseFollowers(p.followers), 0);
+const totalChannelsCount = allPages.length;
+
+// Estimated organic reach (approx 2x follower count for high-growth network)
+const estimatedMonthlyReach = totalFollowersCount * 2.1; 
+
+const stats = [
+  { icon: <Users size={26} className="text-accent" />, value: fmtStat(totalFollowersCount), label: "Aggregate Followers" },
+  { icon: <Radio size={26} className="text-accent" />, value: `${totalChannelsCount}+`, label: "Engagement Channels" },
+  { icon: <TrendingUp size={26} className="text-accent" />, value: fmtStat(estimatedMonthlyReach), label: "Monthly Organic Reach" },
 ];
 
 /* ════════════════════════════════════════
@@ -63,26 +76,17 @@ const segments = [
     icon: <Zap size={22} className="text-yellow-400" />,
     label: "Entertainment & Viral",
     purpose: "Mass Awareness",
-    desc: "Reach millions instantly through high-engagement comedy and viral content pages.",
-    pages: ["සිනාව", "පිස්සුඅන්දරෙ", "DONI"],
+    desc: "Reach millions instantly through high-engagement viral content pages.",
+    pages: ["SUPUN LIYANARACHCHI", "දිලු"],
     accent: "border-yellow-400/30 bg-yellow-400/5",
     badge: "bg-yellow-400/20 text-yellow-300",
-  },
-  {
-    icon: <Users size={22} className="text-pink-400" />,
-    label: "Lifestyle & Influencer",
-    purpose: "Engagement & Trust",
-    desc: "Build brand affinity through personal influencer connections and lifestyle audiences.",
-    pages: ["SUPUN LIYANARACHCHI", "Madu Page", "MASHI"],
-    accent: "border-pink-400/30 bg-pink-400/5",
-    badge: "bg-pink-400/20 text-pink-300",
   },
   {
     icon: <Target size={22} className="text-accent" />,
     label: "Community & Local",
     purpose: "Niche Focus",
     desc: "Target tightly-knit communities with specific interests for high-conversion campaigns.",
-    pages: ["USA-USA", "Yanthare", "Real වෙස්-ටෝක්"],
+    pages: ["HELA CINEMA", "Walauwa", "Yanthare"],
     accent: "border-accent/30 bg-accent/5",
     badge: "bg-accent/20 text-accent",
   },
@@ -91,18 +95,9 @@ const segments = [
 /* ════════════════════════════════════════
    MULTI-PLATFORM & YOUTUBE CHANNELS
 ════════════════════════════════════════ */
-const hybridChannels = [
-  { name: "DHAMMA VISION", logo: "/images/DHAMMA VISION.png", platforms: ["facebook", "youtube"] as const },
-  { name: "DR ROSHEL", logo: "/images/DR ROSHEL.png", platforms: ["facebook", "youtube"] as const },
-  { name: "GREEK HISTORIAN", logo: "/images/GREEK HISTORIAN.png", platforms: ["facebook", "youtube"] as const, note: "10k+" },
-  { name: "PROFESSOR", logo: "/images/PROFESSOR.png", platforms: ["facebook", "youtube"] as const },
-  { name: "WISHWA AGAMANAYA", logo: "/images/WISHWA AGAMANAYA.png", platforms: ["facebook", "youtube"] as const },
-];
+const hybridChannels: any[] = [];
 
-const youtubeChannels = [
-  { name: "Bihan Tech", logo: "/images/bihan-1.jpg", desc: "Technology tutorials & reviews" },
-  { name: "ASMRCUT-p9t", logo: "/images/bihan-3.png", desc: "Relaxation & ASMR content" },
-];
+const youtubeChannels: any[] = [];
 
 /* ════════════════════════════════════════
    COMPONENTS
@@ -116,15 +111,15 @@ function PageAvatar({ page }: { page: FBPage }) {
       transition={{ duration: 0.25 }}
       className="group flex flex-col items-center gap-3 text-center"
     >
-      {/* Avatar circle */}
-      <div className="relative">
-        <div className={`w-16 h-16 rounded-full bg-gradient-to-br ${page.color} flex items-center justify-center shadow-lg overflow-hidden border-2 border-white/10 group-hover:border-accent/50 transition-colors`}>
-          {page.logo ? (
-            <Image src={page.logo} alt={page.name} fill className="object-cover rounded-full" />
-          ) : (
-            <span className="text-white font-black text-sm">{initials}</span>
-          )}
-        </div>
+          {/* Avatar circle */}
+          <div className="relative">
+            <div className={`w-16 h-16 rounded-full bg-gradient-to-br ${page.color} flex items-center justify-center shadow-lg overflow-hidden border-2 border-white/10 group-hover:border-accent/50 transition-colors`}>
+              {page.logo ? (
+                <Image src={page.logo} alt="" fill className="object-cover rounded-full" />
+              ) : (
+                <span className="text-white font-black text-sm">{initials}</span>
+              )}
+            </div>
         {/* FB badge */}
         <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-blue-600 rounded-full flex items-center justify-center border border-black">
           <Facebook size={10} className="text-white" />
@@ -193,7 +188,7 @@ export default function Ecosystem() {
 
             <motion.p variants={fadeUp} custom={2}
               className="text-zinc-400 text-base max-w-md leading-relaxed">
-              A curated ecosystem of <span className="text-white font-semibold">25+ high-reach</span> Facebook &amp; YouTube channels — delivering targeted audiences across entertainment, lifestyle, community &amp; beyond.
+              A curated ecosystem of <span className="text-white font-semibold">{totalChannelsCount}+ high-reach</span> Facebook &amp; YouTube channels — delivering targeted audiences across entertainment, lifestyle, community &amp; beyond.
             </motion.p>
 
             <motion.div variants={fadeUp} custom={3} className="flex flex-wrap gap-3">
@@ -220,7 +215,7 @@ export default function Ecosystem() {
                     {page.logo ? (
                       <Image
                         src={page.logo}
-                        alt={page.name}
+                        alt=""
                         fill
                         className="object-cover"
                       />
@@ -230,27 +225,23 @@ export default function Ecosystem() {
                   </div>
                 ))}
               </div>
-              <p className="text-zinc-500 text-xs">
-                <span className="text-white font-semibold">25+ pages</span> · Active daily ·{" "}
-                <span className="text-accent font-semibold">Slots available now</span>
-              </p>
+               <p className="text-zinc-500 text-xs">
+                 <span className="text-white font-semibold">{totalChannelsCount}+ pages</span> · Active daily ·{" "}
+                 <span className="text-accent font-semibold">Slots available now</span>
+               </p>
             </motion.div>
           </motion.div>
 
           {/* ── RIGHT: Stat Cards ── */}
           <motion.div initial="hidden" animate="visible" className="flex flex-col gap-4">
-            {[
-              { value: "3.5M+", label: "Aggregate Followers", sub: "Across all channels combined", icon: <Users size={28} className="text-accent" />, glow: "shadow-[0_0_60px_-10px_rgba(0,229,255,0.35)]", border: "border-accent/25", bg: "bg-gradient-to-br from-accent/10 via-black to-black" },
-              { value: "25+", label: "Engagement Channels", sub: "Facebook, YouTube & more", icon: <Radio size={28} className="text-violet-400" />, glow: "shadow-[0_0_60px_-10px_rgba(139,92,246,0.3)]", border: "border-violet-400/25", bg: "bg-gradient-to-br from-violet-400/10 via-black to-black" },
-              { value: "10M+", label: "Monthly Organic Reach", sub: "Estimated across the network", icon: <TrendingUp size={28} className="text-emerald-400" />, glow: "shadow-[0_0_60px_-10px_rgba(52,211,153,0.3)]", border: "border-emerald-400/25", bg: "bg-gradient-to-br from-emerald-400/10 via-black to-black" },
-            ].map((s, i) => (
+            {stats.map((s, i) => (
               <motion.div
                 key={s.label}
                 variants={fadeUp}
                 custom={i + 1}
                 whileHover={{ x: 6 }}
                 transition={{ duration: 0.25 }}
-                className={`flex items-center gap-6 p-6 rounded-2xl border ${s.border} ${s.bg} ${s.glow} transition-all duration-300`}
+                className={`flex items-center gap-6 p-6 rounded-2xl border border-accent/25 bg-gradient-to-br from-accent/10 via-black to-black shadow-[0_0_60px_-10px_rgba(0,229,255,0.35)] transition-all duration-300`}
               >
                 <div className="p-4 rounded-2xl bg-white/5 border border-white/10 flex-shrink-0">
                   {s.icon}
@@ -258,7 +249,6 @@ export default function Ecosystem() {
                 <div>
                   <p className="text-5xl font-black text-white tracking-tight leading-none">{s.value}</p>
                   <p className="text-white font-bold text-sm mt-1">{s.label}</p>
-                  <p className="text-zinc-500 text-xs mt-0.5">{s.sub}</p>
                 </div>
               </motion.div>
             ))}
@@ -268,8 +258,8 @@ export default function Ecosystem() {
         {/* Scrolling ticker */}
         <div className="absolute bottom-0 left-0 right-0 border-t border-white/5 bg-black/50 py-3 overflow-hidden">
           <div className="flex gap-12 animate-[marquee_30s_linear_infinite] whitespace-nowrap">
-            {["සිනාව 813k+", "SUPUN 559k+", "පිස්සුඅන්දරෙ 341k+", "Madu Page 333k+", "දිලු 279k+", "GREEK HISTORIAN", "DHAMMA VISION", "HELA CINEMA 56k+", "Drama Land 60k+", "USA-USA 87k+",
-              "සිනාව 813k+", "SUPUN 559k+", "පිස්සුඅන්දරෙ 341k+", "Madu Page 333k+", "දිලු 279k+", "GREEK HISTORIAN", "DHAMMA VISION", "HELA CINEMA 56k+", "Drama Land 60k+", "USA-USA 87k+"].map((n, i) => (
+            {["SUPUN 559k+", "දිලු 279k+", "HELA CINEMA 56k+", "Walauwa 31k+", "Yanthare 17k+",
+              "SUPUN 559k+", "දිලු 279k+", "HELA CINEMA 56k+", "Walauwa 31k+", "Yanthare 17k+"].map((n, i) => (
                 <span key={i} className="text-zinc-500 text-xs font-semibold flex items-center gap-3">
                   <span className="w-1.5 h-1.5 bg-accent rounded-full inline-block" />
                   {n}
@@ -361,65 +351,7 @@ export default function Ecosystem() {
         </div>
       </section>
 
-      {/* ════════ MULTI-PLATFORM CHANNELS ════════ */}
-      <section className="px-6 py-20 border-t border-white/5">
-        <div className="max-w-6xl mx-auto">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} className="mb-12">
-            <motion.div variants={fadeUp} custom={0}
-              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/8 border border-white/15 text-zinc-300 text-xs font-bold mb-4">
-              <Globe size={13} /> Multi-Platform
-            </motion.div>
-            <motion.h2 variants={fadeUp} custom={1} className="text-3xl md:text-4xl font-black tracking-tight mb-2">
-              Facebook &amp; YouTube <span className="text-accent">Hybrid Channels</span>
-            </motion.h2>
-            <motion.p variants={fadeUp} custom={2} className="text-zinc-500 text-sm">Active simultaneously on both platforms for maximum cross-platform reach.</motion.p>
-          </motion.div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
-            {hybridChannels.map((ch, i) => (
-              <motion.div key={ch.name}
-                initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }} transition={{ delay: i * 0.1 }}
-                whileHover={{ y: -4 }}
-                className="group flex flex-col items-center gap-3 p-5 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-accent/30 text-center transition-all duration-300">
-                <div className="relative w-14 h-14 rounded-full overflow-hidden border-2 border-white/10 group-hover:border-accent/40 transition-colors">
-                  <Image src={ch.logo} alt={ch.name} fill className="object-cover" />
-                </div>
-                <div>
-                  <p className="text-white font-bold text-xs leading-tight">{ch.name}</p>
-                  {ch.note && <p className="text-accent text-[11px] font-bold mt-0.5">{ch.note}</p>}
-                </div>
-                <div className="flex gap-1.5">
-                  {ch.platforms.map((pl) => <PlatformBadge key={pl} platform={pl} />)}
-                </div>
-              </motion.div>
-            ))}
-          </div>
-
-          {/* YouTube-only */}
-          <div className="mt-10">
-            <p className="text-zinc-500 text-xs font-bold uppercase tracking-widest mb-5">Specialised YouTube Channels</p>
-            <div className="grid sm:grid-cols-2 gap-4 max-w-lg">
-              {youtubeChannels.map((ch, i) => (
-                <motion.div key={ch.name}
-                  initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }} transition={{ delay: i * 0.1 }}
-                  whileHover={{ y: -3 }}
-                  className="group flex items-center gap-4 p-4 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-red-500/30 transition-all duration-300">
-                  <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-white/10 flex-shrink-0">
-                    <Image src={ch.logo} alt={ch.name} fill className="object-cover" />
-                  </div>
-                  <div>
-                    <p className="text-white font-bold text-sm">{ch.name}</p>
-                    <p className="text-zinc-500 text-xs">{ch.desc}</p>
-                    <div className="mt-1"><PlatformBadge platform="youtube" /></div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* ════════ AD PRICE CALCULATOR ════════ */}
       <AdCalculator />
@@ -446,9 +378,9 @@ export default function Ecosystem() {
                 Get Guaranteed Leads with Our<br />
                 <span className="text-accent">Multi-Million Reach.</span>
               </h2>
-              <p className="text-zinc-400 text-base max-w-xl mx-auto mb-8 leading-relaxed">
-                One campaign. 25+ channels. 3.5M+ targeted followers. From brand awareness to direct conversions — we deliver.
-              </p>
+               <p className="text-zinc-400 text-base max-w-xl mx-auto mb-8 leading-relaxed">
+                 One campaign. {totalChannelsCount}+ channels. {fmtStat(totalFollowersCount)} targeted followers. From brand awareness to direct conversions — we deliver.
+               </p>
               <div className="flex flex-wrap gap-4 justify-center">
                 <a href="https://wa.me/94764682362?text=Hi%20Digihub%20Pro%20Team%2C%20I%20want%20to%20advertise%20on%20your%20network%20and%20get%20guaranteed%20leads"
                   target="_blank" rel="noopener noreferrer"
